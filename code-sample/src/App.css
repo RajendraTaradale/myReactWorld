@@ -1,0 +1,17 @@
+.main {
+    display: flex;
+  }
+  .center-items {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .w-100 {
+    width: 50%;
+  }
+  .color-warning {
+    background: #cb2805;
+  }
+  .transform-vertical {
+    transform: rotate(-90deg);
+  }
