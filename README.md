@@ -17,6 +17,7 @@ hoc	Higher Order Component.
 
 ren	render.
 
+React Measuring Performance https://www.npmjs.com/package/web-vitals
 
 https://snyk.io/advisor/npm-package/axios-retry
 
