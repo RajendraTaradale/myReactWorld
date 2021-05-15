@@ -3,7 +3,8 @@ import Navbar from './Components/NavBar';
 import { Button, Icon, List, Grid, Header } from 'semantic-ui-react';
 import WarningModal from './Components/WarningModal';
 import './App.css';
-
+  
+import { AppBar, Box, Container, CssBaseline, ThemeProvider, Toolbar, Typography } from '@material-ui/core';
 //Redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -20,6 +21,8 @@ import EmployeeDetailsFormik from './Pages/UserDetailsFormik';
 import UserList from './Pages/DisplayUserList';
 import Pagination from './Components/Pagination';
 import DynamicFields from './Components/DynamicFields';
+import { theme } from './Styles/theme';
+
 const store = createStore(modalReducer);
 Interceptor.interceptor(store);
 
@@ -68,7 +71,14 @@ function App() {
   //-------------Pagination code End
 
   return (<>
-    <div className='container'>
+  <ThemeProvider theme={theme}>
+   <AppBar position="fixed">
+          <Toolbar variant="dense">
+            <Typography variant="h6">Rajendra Taradale Code Samples</Typography>
+          </Toolbar>
+        </AppBar>
+    <Container>
+    <Box marginTop={10}>
       <MyProvider>
         <Provider store={store} >
           <div className='row'>
@@ -148,8 +158,9 @@ function App() {
           </div>
         </div>
       </div>
-
-    </div>
+      </Box>
+    </Container>
+    </ThemeProvider>
   </>);
 }
 
