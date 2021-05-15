@@ -19,6 +19,7 @@ import UserDetails from './Pages/UserDetailsForm';
 import EmployeeDetailsFormik from './Pages/UserDetailsFormik';
 import UserList from './Pages/DisplayUserList';
 import Pagination from './Components/Pagination';
+import DynamicFields from './Components/DynamicFields';
 const store = createStore(modalReducer);
 Interceptor.interceptor(store);
 
@@ -140,6 +141,13 @@ function App() {
         </div>
       </div>
 
+      <div className='row'>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <DynamicFields />
+          </div>
+        </div>
+      </div>
 
     </div>
   </>);
