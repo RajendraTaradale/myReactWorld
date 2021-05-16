@@ -17,6 +17,8 @@ Everything about ReactJS, POC's, Useful Links / Blogs and many more...
 
 :bulb: ren	render.
 
+:bulb: https://github.com/enaqx/awesome-react - Complete React Reference
+
 :bulb: React Measuring Performance https://www.npmjs.com/package/web-vitals
 
 :bulb: https://snyk.io/advisor/npm-package/axios-retry
