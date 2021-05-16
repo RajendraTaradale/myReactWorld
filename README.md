@@ -1,24 +1,24 @@
 # myReactWorld
 Everything about ReactJS, POC's, Useful Links / Blogs and many more... 
 
-imrc	Import React / Component.
+:bulb: imrc	Import React / Component.
 
-cc	Class Component.
+:bulb: cc	Class Component.
 
-ccc	Class Component With Constructor.
+:bulb: ccc	Class Component With Constructor.
 
-cpc	Class Pure Component.
+:bulb: cpc	Class Pure Component.
 
-sfc	Stateless Function Component.
+:bulb: sfc	Stateless Function Component.
 
-ssf	Functional setState.
+:bulb: ssf	Functional setState.
 
-hoc	Higher Order Component.
+:bulb: hoc	Higher Order Component.
 
-ren	render.
+:bulb: ren	render.
 
-React Measuring Performance https://www.npmjs.com/package/web-vitals
+:bulb: React Measuring Performance https://www.npmjs.com/package/web-vitals
 
-https://snyk.io/advisor/npm-package/axios-retry
+:bulb: https://snyk.io/advisor/npm-package/axios-retry
 
-https://blog.bitsrc.io/my-favorite-microservice-design-patterns-for-node-js-fe048c635d83
+:bulb: https://blog.bitsrc.io/my-favorite-microservice-design-patterns-for-node-js-fe048c635d83
