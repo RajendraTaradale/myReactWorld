@@ -208,4 +208,80 @@ import { Route, Redirect } from 'react-router'
 )}/>
 
 <Redirect to="/somewhere/else"/>
+-----
+const userauthentication={
+  isLoggedIn:false,
+  onAuthentication(){
+    this.isLoggedIn=true;
+  },
+  getUserLogInStatus(){
+    return this.isLoggedIn;
+  }
+}
+--
+function SecuredPathRoute(props){
+  return(
+    <Route path={props.path} render={data=>userauthentication.getUserLogInStatus()?(
+      <props.component {...data}></props.component>):
+      (<Redirect to={{pathname:'/'}}></Redirect>)}></Route>
+  )
+}
+
+<Switch>
+<Route exact path="/" component={LogIn}></Route>
+<SecuredPathRoute  path="/data" component={data}></SecuredRoute>
+<SecuredPathRoute  path="/datasecret" component={datas}></SecuredRoute>
+</Switch>
 ###########################################################
+this.mytextBox=React.createRef();
+<input type="text" ref={this.quantityRef}></input>
+componentDidMount(){
+    this.mytextBox.current.focus();
+}
+
+###########################################################
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+
+const employeePersonalData={
+  salary:25000
+};
+
+const reducer=(state=employeePersonalData,action)=>{
+  switch(action.type){
+    case 'INCREMENT':
+      return {salary:state.salary + 1000};
+
+    case 'DECREMENT':
+      return {salary:state.salary - 1000};
+
+    default:
+      return state;
+  }
+}
+const store=createStore(reducer);
+---- In you component
+
+  incrementSalary = () => {
+    this.props.dispatch({type:'INCREMENT'});
+  }
+
+  decrementSalary = () => {
+    this.props.dispatch({type:'DECREMENT'});
+  }
+
+  render() {
+    return (
+               <label>Employee Salary : <b>{this.props.salary}</b></label>
+            </p>
+          <button onClick={this.incrementSalary}>Increment</button>          
+          <button onClick={this.decrementSalary}>Decrement</button>
+)
+ 
+function mapStateToProps(state){
+    return{
+        salary:state.salary
+    };
+}
+export default connect(mapStateToProps)(Employee);
+
