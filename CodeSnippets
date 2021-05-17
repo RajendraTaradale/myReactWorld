@@ -1,0 +1,43 @@
+import React, { createContext } from 'react'
+import ComB from "./ComB";
+
+const BioData = createContext();
+
+const ComA = () => {
+    return (
+        <BioData.Provider value={"Thapa Technical Subs"}>
+            <ComB />
+        </BioData.Provider>
+    ) 
+}
+export default ComA
+export { BioData };
+
+---
+
+import React from 'react'
+import ComC from "./ComC";
+
+const ComB = () => {
+    return <ComC />
+}
+
+export default ComB
+
+----
+
+import React, {useContext} from 'react'
+import { BioData } from "./ComA";
+
+const Comc = ({ name }) => {
+    const channelName = useContext(BioData);
+    return <h1>Hello ComC  { channelName } </h1>
+}
+
+export default 
+
+
+---
+Pass the Data from A to B component
+
+<link to={{pathname:`/contact/${id}`, state: {data: props.data}}}
