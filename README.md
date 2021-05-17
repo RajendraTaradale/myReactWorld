@@ -24,3 +24,7 @@ Everything about ReactJS, POC's, Useful Links / Blogs and many more...
 :bulb: https://snyk.io/advisor/npm-package/axios-retry
 
 :bulb: https://blog.bitsrc.io/my-favorite-microservice-design-patterns-for-node-js-fe048c635d83
+
+:bulb: https://marmelab.com/blog/2015/12/17/react-directory-structure.html
+
+:bulb: https://www.freecodecamp.org/news/the-best-way-to-architect-your-redux-app-ad9bd16c8e2d/
