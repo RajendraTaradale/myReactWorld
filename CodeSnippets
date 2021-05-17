@@ -118,3 +118,94 @@ let userData = {
                 </UserProfileContext.Consumer>
             </div>
 ###########################################################
+
+ <Link to={{  pathname: '/',hash: '#rajendra', search: '?channel=rajendra',   state: { admin: true }, }}  >  React Router  </Link>
+ <NavLink to='/posts' activeClassName='text-white'> Posts </NavLink>
+ ---
+ import { BrowserRouter,  Route, HashRouter,  Switch,  Redirect } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
+const About = lazy(() =>
+    import(/* webpackChunkName: "About" */ './components/About/About'),
+);
+
+const Contact = lazy(() =>
+    import(
+        /* webpackChunkName: "Contact" */ './components/Contact/Contact'
+    ),
+);
+const routeone = lazy(() => import('./components/routeone/routeones'));
+const NotFound = lazy(() => import('./components/NotFound/NotFound'));
+
+  <BrowserRouter>
+            <Header />
+            <div className='container mx-auto'>
+                <div>
+                    <Suspense fallback={<div>Loading....</div>}>
+                        <Switch>
+                            {isAuthenticate && (
+                                <Route path='/about' component={About} />
+                            )}
+
+                            <Route path='/routeone' component={routeone} />
+                            <Route path='/routeone' component={routeone} />
+
+                            <Redirect from='/' to='/posts' exact />
+                            <Route path='*' component={NotFound} />
+                        </Switch>
+                    </Suspense>
+                </div>
+                <Footer />
+            </div>
+        </BrowserRouter>
+---
+React Router v4
+Using component
+---
+import { useParams } from 'react-router-dom'
+const { handle } = useParams()
+
+ const { userName } = this.props.match.params;
+---
+<Route path="/users/:id" component={UserPage}/> 
+this.props.match.params.id
+The component is automatically rendered with the route props.
+
+Using render
+
+<Route path="/users/:id" render={(props) => <UserPage {...props} />}/> 
+this.props.match.params.id
+Route props are passed to the render function.
+
+---
+const query = new URLSearchParams(this.props.location.search);
+const token = query.get('token')
+console.log(token)//1238999
+
+npm i query-string
+import queryString from 'query-string'
+const value=queryString.parse(this.props.location.search);
+const token=value.token;
+console.log('token',token)//rajendr255066
+----
+import { useHistory } from 'react-router-dom';
+const history = useHistory();
+const handleClick = () => {
+        history.push("/path/to/push");
+ }
+ ----
+ this.props.history.push("/new/url");
+----
+this will navigate to a new location. The new location will override the current location in the history stack, like server-side redirects (HTTP 3xx) do.
+import { Route, Redirect } from 'react-router'
+
+<Route exact path="/" render={() => (
+  loggedIn ? (
+    <Redirect to="/dashboard"/>
+  ) : (
+    <MyHomePage/>
+  )
+)}/>
+
+<Redirect to="/somewhere/else"/>
+###########################################################
