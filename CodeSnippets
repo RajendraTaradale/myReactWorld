@@ -26,10 +26,10 @@ const Comc = ({ name }) => {
 
 export default 
 
-#####################################################################################################################################################################
+###########################################################
 Pass the Data from A to B component
 <link to={{pathname:`/contact/${id}`, state: {data: props.data}}}
-#####################################################################################################################################################################
+###########################################################
 
 import axios from 'axios';
 
@@ -40,5 +40,81 @@ const instance = axios.create({
 instance.defaults.headers.common['Authorization'] = 'Auth From instance';
 
 export default instance;
+###########################################################
+import { Component } from 'react';
 
+export class ErrorBoundary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+    static getDerivedStateFromError() {
+        console.log('get derived error fired');
+        return { hasError: true };
+    }
 
+    componentDidCatch(error, info) {
+        console.log(error);
+        console.log(info);
+        console.log('component did catch fired');
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <div>An Error occured</div>;
+        }
+        return this.props.children;
+    }
+}
+---
+  <ErrorBoundary>
+  <App />                     
+ </ErrorBoundary>
+ 
+ ###########################################################
+
+import React from 'react';
+
+const UserContext = React.createContext();
+
+export default UserContext;
+---
+import React from 'react';
+
+const UserProfileContext = React.createContext();
+
+export default UserProfileContext;
+---
+let userData = {
+        name: 'Rajendra Taradale',
+        greet: function () {
+            return 'Hello ' + this.name;
+        },
+    };
+    
+<UserProfileContext.Provider value='Admin'>
+<UserContext.Provider value={userData}>
+    <App />
+</UserContext.Provider>
+</ButtonContext.Provider>
+---
+
+<div>
+ <UserProfileContext.Consumer>
+                    {(value) => {
+                        return (
+                            <div>
+                                <a href='#'>{value}</a>
+                                <UserContext.Consumer>
+                                    {(userValue) => {
+                                        return (
+                                            <div>{userValue.gret()}</div>
+                                        );
+                                    }}
+                                </UserContext.Consumer>
+                            </div>
+                        );
+                    }}
+                </UserProfileContext.Consumer>
+            </div>
+###########################################################
