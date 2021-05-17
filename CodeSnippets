@@ -1,8 +1,7 @@
+
 import React, { createContext } from 'react'
 import ComB from "./ComB";
-
 const BioData = createContext();
-
 const ComA = () => {
     return (
         <BioData.Provider value={"Thapa Technical Subs"}>
@@ -12,20 +11,11 @@ const ComA = () => {
 }
 export default ComA
 export { BioData };
-
----
-
-import React from 'react'
-import ComC from "./ComC";
-
-const ComB = () => {
-    return <ComC />
+ 
 }
 
 export default ComB
-
 ----
-
 import React, {useContext} from 'react'
 import { BioData } from "./ComA";
 
@@ -36,14 +26,12 @@ const Comc = ({ name }) => {
 
 export default 
 
-
----
+#####################################################################################################################################################################
 Pass the Data from A to B component
-
 <link to={{pathname:`/contact/${id}`, state: {data: props.data}}}
+#####################################################################################################################################################################
 
--------------------------------------------------------------------
-:books: import axios from 'axios';
+import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'https://react-course-b798e-default-rtdb.firebaseio.com/',
