@@ -31,15 +31,28 @@ Pass the Data from A to B component
 <link to={{pathname:`/contact/${id}`, state: {data: props.data}}}
 ###########################################################
 
-import axios from 'axios';
+import axios from 'axios'
 
-const instance = axios.create({
-    baseURL: 'https://react-course-b798e-default-rtdb.firebaseio.com/',
-});
+const baseService = axios.create({
+  baseURL: 'http://localhost:4060/api/data',
+  headers: {
+    'Accept': 'application/json',
+    'Accept-Language': 'es',
+    'Content-Type': 'application/json'
+  },
+  withCredentials: true
+})
 
-instance.defaults.headers.common['Authorization'] = 'Auth From instance';
+baseService.interceptors.response.use(
+  function (response) {
+    return response.data
+  },
+  function (error) {
+    console.error(error)
+  }
+)
 
-export default instance;
+export default baseService
 ###########################################################
 import { Component } from 'react';
 
@@ -284,7 +297,101 @@ function mapStateToProps(state){
     };
 }
 export default connect(mapStateToProps)(Employee);
+---
+By default, Redux’s actions are dispatched synchronously, which is a problem for any non-trivial app that needs to 
+communicate with an external API or perform side effects. Redux also allows for middleware that sits between an action being dispatched 
+and the action reaching the reducers.
 
+Redux store doesn't know anything about async logic. It only knows how to synchronously dispatch actions, 
+update the state by calling the root reducer function, and notify the UI that something has changed
+
+Redux Thunk is middleware that allows you to return functions, rather than just actions, within Redux. This allows for delayed actions, 
+including working with promises.
+
+One of the main use cases for this middleware is for handling actions that might not be synchronous, for example, using axios to send a GET request. 
+Redux Thunk allows us to dispatch those actions asynchronously and resolve each promise that gets returned.
+
+npm install redux-thunk --save
+
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/index';
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+Option 1:
+
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunk))
+const store = createStore(rootReducer, composedEnhancer)
+export default store
+
+Option 2:
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
+
+Example 1:
+const getUser = () => {
+  return (dispatch) => {     //nameless functions
+    // Initial action dispatched
+    dispatch({ type: GET_CURRENT_USER });
+    // Return promise with success and failure actions
+    return axios.get('/api/auth/user').then(  
+      user => dispatch({ type: GET_CURRENT_USER_SUCCESS, user }),
+      err => dispatch({ type: GET_CURRENT_USER_FAILURE, err })
+    );
+  };
+};
+
+Example 2: Thunk function
+export async function fetchTodos(dispatch, getState) {
+  const response = await client.get('/fakeApi/todos')
+  dispatch({ type: 'todos/todosLoaded', payload: response.todos })
+}
+---
+---
+Exploring getState
+On top of receiving the dispatch method from the state, the function returned by an asynchronous action creator with Redux 
+Thunk also receives the store’s getState method, so that current store values can be read:
+
+Example 1:
+export const addTodo = ({ title, userId }) => {
+  return (dispatch, getState) => {
+    const { todos } = getState();
+    if (todos.length > 4) return;
+    dispatch(addTodoStarted());
+  };
+};
+---
+combineReducers
+As your app grows more complex, you'll want to split your reducing function into separate functions, 
+each managing independent parts of the state.
+
+The combineReducers helper function turns an object whose values are different reducing functions into a single reducing function you can pass to createStore.
+
+import { combineReducers } from 'redux'
+import rdOne from './rdOne'
+import rdTwo from './rdTwo'
+
+export default combineReducers({
+  rdOne,
+  rdTwo
+})
+
+const store = createStore(reducer)
+console.log(store.getState())
+
+Example 1-
+const rootReducer = combineReducers({
+  theDefaultReducer,
+  firstNamedReducer,
+  secondNamedReducer
+})
+
+const store = createStore(rootReducer)
+console.log(store.getState())
+
+##########################################
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
   if (!auth.isAuthenticated()) {
