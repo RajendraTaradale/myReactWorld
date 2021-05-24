@@ -298,6 +298,7 @@ function mapStateToProps(state){
 }
 export default connect(mapStateToProps)(Employee);
 ---
+Redux Thunk
 By default, Redux’s actions are dispatched synchronously, which is a problem for any non-trivial app that needs to 
 communicate with an external API or perform side effects. Redux also allows for middleware that sits between an action being dispatched 
 and the action reaching the reducers.
@@ -315,6 +316,7 @@ npm install redux-thunk --save
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+//const thunk = ReduxThunk.default;
 import rootReducer from './reducers/index';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -349,6 +351,53 @@ export async function fetchTodos(dispatch, getState) {
   dispatch({ type: 'todos/todosLoaded', payload: response.todos })
 }
 ---
+Redux Saga
+An intuitive Redux side effect manager. Easy to manage, easy to test, and executes efficiently.
+Asynchronous
+Composition-focused - Sagas enable numerous approaches to tackling parallel execution, task concurrency, task racing, task cancellation, and more. Keep total control over the flow of your code
+Easy To Test - Assert results at each step of a generator or for a saga as a whole. Either way, side effect testing is quick, concise, and painless, as testing should be.
+
+As any redux developer could tell you, the hardest part of building an app are asynchronous calls — how do you handle network requests, timeouts, and other callbacks without complicating the redux actions and reducers?
+
+In the context of Redux, a saga is implemented as a middleware (we can’t use a reducer because this must be a pure function) to coordinate and trigger asynchronous actions (side-effects)
+const {Provider, connect} = ReactRedux;
+const {createStore, applyMiddleware} = Redux;
+const createSagaMiddleware = ReduxSaga.default;
+const {takeEvery, put, call} = ReduxSaga.effects;
+
+//In addition to takeEvery, call, and put, redux-saga offers a lot of effect creators for throttling, getting the current state, 
+//running tasks in parallel, and cancel tasks,
+
+// Store
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(watchFetchDog);
+
+There are other alternatives to redux-saga that are worth trying. 
+redux-observable (based on RxJS)  
+redux-logic (also based on RxJS observables
+https://redux-saga.js.org/docs/api/
+https://blog.logrocket.com/understanding-redux-saga-from-action-creators-to-sagas-2587298b5e71/
+
+takeEvery(pattern, saga, ...args) - Spawns a saga on each action dispatched to the Store that matches pattern.
+import { takeEvery } from `redux-saga/effects`
+function* fetchUser(action) {
+  ...
+}
+function* watchFetchUser() {
+  yield takeEvery('USER_REQUESTED', fetchUser)
+}
+We use takeEvery to start a new fetchUser task on each dispatched USER_REQUESTED action
+---
+takeLatest(pattern, saga, ...args)# It automatically cancels any previous saga task started previously if it's still running.
+
+put(action) - 
+expect the store to be updated in the current stack frame (i.e. by the next line of code after yield put(action)) 
+unless you have other Redux middlewares with asynchronous flows that delay the propagation of the action.
+
 ---
 Exploring getState
 On top of receiving the dispatch method from the state, the function returned by an asynchronous action creator with Redux 
