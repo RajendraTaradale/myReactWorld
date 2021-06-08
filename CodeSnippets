@@ -467,4 +467,133 @@ export const makeMainRoutes = () => {
   )
 }
 
+###################
+Start 08/06/21
+https://github.com/LeeCheneler/react-app-template
 
+import loadRouteOne from 'modules/RouteOne/index.bundle'
+import loadRouteTwo from 'modules/RouteTwo/index.bundle'
+
+const routes = [
+  {
+    title: 'Route One',
+    path: '/route-one',
+    load: loadRouteOne
+  },
+  {
+    title: 'Route Two',
+    path: '/route-two',
+    load: loadRouteTwo
+  }
+]
+
+export default routes
+
+-------------
+
+import React from 'react'
+import { Route, Switch } from 'react-router'
+import { Link } from 'react-router-dom'
+
+import AsyncComponent from 'components/async/AsyncComponent'
+
+import routes from './routes'
+
+const App = () =>
+  <div>
+    <nav>
+      <ul className="pl-o-list">
+        {routes.map(route => (
+          <li key={route.path} className="pl-o-list__item">
+            <Link to={route.path}>{route.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <Switch>
+      {routes.map(route => (
+        <Route
+          key={route.path}
+          path={route.path}
+          component={props => <AsyncComponent {...props} load={route.load} />}
+        />
+      ))}
+    </Switch>
+  </div>
+
+export default App
+--------------------------------
+
+
+import React from 'react'
+import T from 'prop-types'
+
+import AsyncBundle from 'components/async/AsyncBundle'
+
+import Loading from 'components/common/Loading'
+
+const AsyncComponent = props =>
+  <AsyncBundle load={props.load} loadingComponent={Loading}>
+    {Comp => <Comp {...props} />}
+  </AsyncBundle>
+
+AsyncComponent.propTypes = {
+  load: T.func.isRequired
+}
+
+export default AsyncComponent
+
+------
+
+import React from 'react'
+import T from 'prop-types'
+
+class AsyncBundle extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      mod: null
+    }
+  }
+
+  componentWillMount() {
+    this.load(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Don't bother reloading if it's the same module
+    if (nextProps.load !== this.props.load) {
+      this.load(nextProps)
+    }
+  }
+
+  load(props) {
+    this.setState({
+      mod: null
+    })
+
+    props.load((mod) => {
+      this.setState({
+        // Handle both es imports and cjs
+        mod: mod.default || mod
+      })
+    })
+  }
+
+  render() {
+    return this.state.mod
+      ? this.props.children(this.state.mod)
+      : this.props.loadingComponent()
+  }
+}
+
+AsyncBundle.propTypes = {
+  children: T.func.isRequired,
+  load: T.func.isRequired,
+  loadingComponent: T.func.isRequired
+}
+
+export default AsyncBundle
+
+-----
+END 08/06/21
