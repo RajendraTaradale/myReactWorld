@@ -37,4 +37,6 @@ Everything about ReactJS, POC's, Useful Links / Blogs and many more...
 
 :bulb: https://github.com/RajendraTaradale/project_mern_memories - Using React, Node.js, Express & MongoDB
 
+:bulb: https://github.com/RajendraTaradale/Instagram-clone-MERN-Stack - Instagram-clone-MERN-Stack
+
 :bulb: https://github.com/RajendraTaradale/react-complete-guide-code Code snippets
