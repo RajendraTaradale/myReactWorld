@@ -39,6 +39,8 @@ Everything about ReactJS, POC's, Useful Links / Blogs and many more...
 
 :bulb: https://github.com/RajendraTaradale/mern-ecommerce - Best one
 
+:bulb: https://github.com/RajendraTaradale/react-shopping-cart-1 - with Node & Express, MongoDB: Mongoose, Aggregation Redux: Store, Reducers, Actions 
+
 :bulb: https://github.com/RajendraTaradale/Instagram-clone-MERN-Stack - Instagram-clone-MERN-Stack
 
 :bulb: https://github.com/RajendraTaradale/nextjs-ecommerce
