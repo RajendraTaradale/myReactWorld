@@ -45,4 +45,6 @@
 
 :bulb: https://github.com/RajendraTaradale/nextjs-ecommerce
 
+:bulb: https://github.com/RajendraTaradale/youtube - React Node.js Social Media App
+
 :bulb: https://github.com/RajendraTaradale/react-complete-guide-code Code snippets
