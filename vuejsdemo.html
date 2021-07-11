@@ -31,6 +31,7 @@
             <input v-model="loginForm.username">
             <input v-model="loginForm.password">
             <button v-on:click="submitForm">Submit</button>
+            {{formInfo}}
         </div>
         <p>
             {{filterList}}
@@ -111,7 +112,7 @@
             },
             computed: {
                 formInfo: function () {
-                    return this.loginForm.username + " /------ " + this.loginForm.password;
+                    return this.loginForm.username + " --- | --- " + this.loginForm.password;
                 },
                 filterList: function () {
                     return this.list.filter(x => {
